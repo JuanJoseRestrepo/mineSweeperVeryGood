@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.Pane?>
+
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="552.0" prefWidth="837.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.gameController">
+   <children>
+      <BorderPane fx:id="board" layoutX="14.0" layoutY="14.0" prefHeight="495.0" prefWidth="797.0">
+         <top>
+            <Pane prefHeight="32.0" prefWidth="1083.0" BorderPane.alignment="CENTER">
+               <children>
+                  <Button fx:id="intermedio" layoutX="429.0" layoutY="7.0" mnemonicParsing="false" onAction="#botonIntermedio" text="Intermedio" textFill="#0aee3b" />
+                  <Button layoutX="248.0" layoutY="5.0" mnemonicParsing="false" onAction="#reiniciar" text="Reiniciar" />
+                  <Button fx:id="experto" layoutX="525.0" layoutY="7.0" mnemonicParsing="false" onAction="#botonExperto" text="Experto" textFill="#2b07dd" />
+                  <Button fx:id="principiante" layoutX="334.0" layoutY="7.0" mnemonicParsing="false" onAction="#botonPrincipiante" text="Principiante" textFill="#b90d88" />
+                  <Button fx:id="botonReiniciar" layoutX="594.0" layoutY="7.0" mnemonicParsing="false" onAction="#resolver" text="Resolver" textFill="#da1f1f" />
+               </children>
+            </Pane>
+         </top>
+      </BorderPane>
+   </children>
+</Pane>
