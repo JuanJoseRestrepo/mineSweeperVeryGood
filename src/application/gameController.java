@@ -128,6 +128,8 @@ public class gameController implements Initializable {
 		}
         grid.setHgap(2); 
         grid.setVgap(2);
+        
+        board.setCenter(grid);
 	}
 	
 
@@ -179,7 +181,7 @@ public class gameController implements Initializable {
 										"Perdiste!!! Noooooooo");
 								gameOver.showAndWait();
 								reiniciar(event);
-								botonPrincipiante(event);
+								botonIntermedio(event);
 							}		
 						}
 						
@@ -261,7 +263,7 @@ public class gameController implements Initializable {
 										"Perdiste!!! Noooooooo");
 								gameOver.showAndWait();
 								reiniciar(event);
-								botonPrincipiante(event);
+								botonExperto(event);
 							}		
 						}
 						
