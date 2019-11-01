@@ -377,9 +377,9 @@ public class Buscaminas {
 	 * Metodo que se encarga de abrir la primera casilla que no sea una Mina y cuyo valor sea Mayor que 0
 	 * @return String, Mensaje de la Casilla que marco abierta, En caso de no haber casillas posibles para dar una pista, retorna el mensaje no hay pistas para dar
 	 */
-	public String darPista() {
+	public boolean darPista() {
 
-		String msj = "";
+		boolean msj = false;
 		boolean t = false;
 		
 		for(int i = 0; i < casillas.length && !t;i++){
@@ -389,7 +389,7 @@ public class Buscaminas {
 					
 					casillas[i][j].destapar();
 					t = true;
-					msj = "Se desapo la casilla";
+					msj = true;
 					
 				}
 				

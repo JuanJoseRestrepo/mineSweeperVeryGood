@@ -3,6 +3,7 @@ package application;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -46,6 +47,9 @@ public class gameController implements Initializable {
 	private Button m;
 	@FXML
 	private Button botonReiniciar;
+	@FXML
+	private Button botonDarPista;
+
     
 	public static final Image tile = new Image("application/TileOriginal.png", 10, 10, false, false);
 	public static final Image mine = new Image("application/Mine.png", 10, 10, false, false);
@@ -116,9 +120,6 @@ public class gameController implements Initializable {
 								gameOver.showAndWait();
 							}
 						}
-						
-						
-						
 					}
 				});
 				grid.add(m,i,j);
@@ -127,8 +128,6 @@ public class gameController implements Initializable {
 		}
         grid.setHgap(2); 
         grid.setVgap(2);
-
-        board.setCenter(grid);
 	}
 	
 
@@ -351,10 +350,40 @@ public class gameController implements Initializable {
 			gameOver.setTitle("Alto Ahi!");
 			gameOver.setHeaderText("¡Excepcion Encontrada!");
 			gameOver.setContentText(
-					"Por favor digite");
+					"Por cree el tablero, para poder jugar");
 			gameOver.showAndWait();
 		}
 		
+	}
+	
+	public void darPista(ActionEvent e) {
+		try {
+			if(busca.getNivel() == 1) {
+				Casilla[][] casillas = busca.darCasillas();
+				boolean t = false;
+				for(int i = 0; i < casillas.length ;i++) {
+					
+					for(int j = 0; j < casillas[0].length &&!t;j++) {
+						
+						if(busca.darCasillas()[i][j].darTipo() == Casilla.LIBRE && busca.darCasillas()[i][j].darValor() > 0) {
+							Button m = new Button(busca.darCasillas()[i][j].mostrarValorCasilla());
+							m.setText(Integer.toString(busca.darCasillas()[i][j].darValor()));
+							grid.add(m, i, j);
+							grid.getChildren().remove(i,j);
+						}
+						
+					}
+				
+			}
+		}
+		}catch(NullPointerException e1) {
+			Alert gameOver = new Alert(AlertType.INFORMATION);
+			gameOver.setTitle("Alto Ahi!");
+			gameOver.setHeaderText("¡Excepcion Encontrada!");
+			gameOver.setContentText(
+					"Por cree el tablero, para poder jugar");
+			gameOver.showAndWait();
+		}
 	}
 	
 	public void reiniciar(ActionEvent e) {
