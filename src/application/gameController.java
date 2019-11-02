@@ -8,7 +8,9 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.geometry.HPos;
 import javafx.geometry.Insets;
+import javafx.geometry.VPos;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -55,10 +57,12 @@ public class gameController implements Initializable {
 	public static final Image mine = new Image("application/Mine.png", 10, 10, false, false);
 	
 	private Buscaminas busca;
+	private boolean t = false;
 	
 	public void botonPrincipiante(ActionEvent e) {
 		busca = new Buscaminas(1);
 		grid = new GridPane();
+		grid.setGridLinesVisible(true);
 		grid.setMaxHeight(30);
 		grid.setMaxWidth(30);		
 		busca.inicializarPartida();
@@ -136,6 +140,7 @@ public class gameController implements Initializable {
 	public void botonIntermedio(ActionEvent e) {
 		busca = new Buscaminas(2);
 		grid = new GridPane();
+		grid.setGridLinesVisible(true);
 		grid.setMaxHeight(30);
 		grid.setMaxWidth(30);		
 		busca.inicializarPartida();
@@ -225,12 +230,14 @@ public class gameController implements Initializable {
 		
         for (int row = 0 ; row < Buscaminas.FILAS_EXPERTO ; row++ ){
             RowConstraints rc = new RowConstraints();
+            rc.setValignment(VPos.CENTER);
             rc.setFillHeight(true);
             rc.setVgrow(Priority.ALWAYS);
             grid.getRowConstraints().add(rc);
         }
         for (int col = 0 ; col < Buscaminas.COLUMNAS_EXPERTO; col++ ) {
             ColumnConstraints cc = new ColumnConstraints();
+            cc.setHalignment(HPos.RIGHT);
             cc.setFillWidth(true); 
             cc.setHgrow(Priority.ALWAYS);
             grid.getColumnConstraints().add(cc);
@@ -335,7 +342,7 @@ public class gameController implements Initializable {
 					}
 					
 					grid.add(m, i, j);
-				}
+				} 
 				
 			}
 	        grid.setHgap(2); 
@@ -359,24 +366,23 @@ public class gameController implements Initializable {
 	}
 	
 	public void darPista(ActionEvent e) {
+		t = false;
 		try {
 			if(busca.getNivel() == 1) {
 				Casilla[][] casillas = busca.darCasillas();
-				boolean t = false;
-				for(int i = 0; i < casillas.length ;i++) {
+				for(int i = 0; i < casillas.length &&!t ;i++) {
 					
 					for(int j = 0; j < casillas[0].length &&!t;j++) {
 						
-						if(busca.darCasillas()[i][j].darTipo() == Casilla.LIBRE && busca.darCasillas()[i][j].darValor() > 0) {
-							Button m = new Button(busca.darCasillas()[i][j].mostrarValorCasilla());
-							m.setText(Integer.toString(busca.darCasillas()[i][j].darValor()));
-							grid.add(m, i, j);
-							grid.getChildren().remove(i,j);
-						}
+						if(busca.darCasillas()[i][j].darValor() > 0 && busca.darCasillas()[i][j].darTipo() == Casilla.LIBRE) {
+							Node m = getNodeFromGridPane(grid, j, i);
+//						    m.setText(Integer.toString(busca.darCasillas()[i][j].darValor()));
+						    t = true;
+						} 
 						
 					}
 				
-			}
+				}
 		}
 		}catch(NullPointerException e1) {
 			Alert gameOver = new Alert(AlertType.INFORMATION);
@@ -401,6 +407,42 @@ public class gameController implements Initializable {
 		}catch(NullPointerException e1) {
 			System.out.println("Debes crear el tablero");
 		}
+	}
+	
+	/**
+	 * @return the grid
+	 */
+	public GridPane getGrid() {
+		return grid;
+	}
+
+
+	/**
+	 * @param grid the grid to set
+	 */
+	public void setGrid(GridPane grid) {
+		this.grid = grid;
+	}
+
+
+	private Node getNodeFromGridPane(GridPane grid, int col, int row) {
+		 ObservableList<Node> childrens = getGrid().getChildren();
+	    for (Node node : childrens) {
+	        if (extracted1(grid, node) == col && extracted(grid, node) == row) {
+	            return node;  
+	        }
+	    }
+	    return null;
+	}
+
+
+	private Integer extracted1(GridPane grid, Node node) {
+		return GridPane.getColumnIndex(node);
+	}
+
+
+	private Integer extracted(GridPane grid, Node node) {
+		return GridPane.getRowIndex(node);
 	}
 	
 	@Override
