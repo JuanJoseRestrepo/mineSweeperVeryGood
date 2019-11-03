@@ -53,8 +53,8 @@ public class gameController implements Initializable {
 	private Button botonDarPista;
 
     
-	public static final Image tile = new Image("Controller/TileOriginal.png", 10, 10, false, false);
-	public static final Image mine = new Image("Controller/Mine.png", 10, 10, false, false);
+	public static final Image tile = new Image("Controller/TileOriginal.png", 20, 20, false, false);
+	public static final Image mine = new Image("Controller/Mine.png", 20, 20, false, false);
 	
 	private Buscaminas busca;
 	private boolean t = false;
@@ -83,10 +83,10 @@ public class gameController implements Initializable {
 	
       
 		for(int i = 0; i < casillas.length;i++) {
-			int mi = i;
 			for(int j = 0; j < casillas[0].length;j++) {
-				int z = j;	
 				Button m = new Button("  ");
+                final int i_button1 = i;
+                final int j_button2 = j;
 				m.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
 				m.setGraphic(new ImageView(tile));
 				m.setGraphicTextGap(5);
@@ -96,9 +96,9 @@ public class gameController implements Initializable {
 					@Override
 					public void handle(ActionEvent event) {
 						
-						if(busca.abrirCasilla(mi, z)) {
+						if(busca.abrirCasilla(i_button1, j_button2)) {
 							
-							if(busca.darCasillas()[mi][z].mostrarValorCasilla() == "*") {
+							if(busca.darCasillas()[i_button1][j_button2].mostrarValorCasilla() == "*") {
 								m.setGraphic(new ImageView(mine));
 								m.setDisable(false);
 								Alert gameOver = new Alert(AlertType.INFORMATION);
@@ -113,7 +113,7 @@ public class gameController implements Initializable {
 						}
 						
 						else{
-							m.setText(busca.darCasillas()[mi][z].mostrarValorCasilla());
+							m.setText(busca.darCasillas()[i_button1][j_button2].mostrarValorCasilla());
 							casillasParaGanar++;
 							if(casillasParaGanar == Buscaminas.MINAS_TOTALES_PRINCPIANTE_PARA_GANAR) {
 								Alert gameOver = new Alert(AlertType.INFORMATION);
@@ -161,10 +161,10 @@ public class gameController implements Initializable {
 	
       
 		for(int i = 0; i < casillas.length;i++) {
-			int mi = i;
 			for(int j = 0; j < casillas[0].length;j++) {
-				int z = j;	
 				Button m = new Button("  ");
+                final int i_button1 = i;
+                final int j_button2 = j;
 				m.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
 				m.setGraphic(new ImageView(tile));
 				m.setGraphicTextGap(5);
@@ -174,8 +174,8 @@ public class gameController implements Initializable {
 					@Override
 					public void handle(ActionEvent event) {
 						
-						if(busca.abrirCasilla(mi, z)) {
-							if(busca.darCasillas()[mi][z].mostrarValorCasilla() == "*") {
+						if(busca.abrirCasilla(i_button1, j_button2)) {
+							if(busca.darCasillas()[i_button1][j_button2].mostrarValorCasilla() == "*") {
 								m.setGraphic(new ImageView(mine));
 								m.setDisable(false);
 								Alert gameOver = new Alert(AlertType.INFORMATION);
@@ -190,7 +190,7 @@ public class gameController implements Initializable {
 						}
 						
 						else{
-							m.setText(busca.darCasillas()[mi][z].mostrarValorCasilla());
+							m.setText(busca.darCasillas()[i_button1][j_button2].mostrarValorCasilla());
 							casillasParaGanar++;
 							if(casillasParaGanar == Buscaminas.MINAS_TOTALES_INTERMEDIO_PARA_GANAR) {
 								Alert gameOver = new Alert(AlertType.INFORMATION);
@@ -244,9 +244,9 @@ public class gameController implements Initializable {
 	
       
 		for(int i = 0; i < casillas.length;i++) {
-			int mi = i;
 			for(int j = 0; j < casillas[0].length;j++) {
-				int z = j;	
+                final int i_button1 = i;
+                final int j_button2 = j;
 				Button m = new Button("  ");
 				m.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
 				m.setGraphic(new ImageView(tile));
@@ -257,8 +257,8 @@ public class gameController implements Initializable {
 					@Override
 					public void handle(ActionEvent event) {
 						
-						if(busca.abrirCasilla(mi, z)) {
-							if(busca.darCasillas()[mi][z].mostrarValorCasilla() == "*") {
+						if(busca.abrirCasilla(i_button1, j_button2)) {
+							if(busca.darCasillas()[i_button1][j_button2].mostrarValorCasilla() == "*") {
 								m.setGraphic(new ImageView(mine));
 								m.setDisable(false);
 								Alert gameOver = new Alert(AlertType.INFORMATION);
@@ -273,7 +273,7 @@ public class gameController implements Initializable {
 						}
 						
 						else{
-							m.setText(busca.darCasillas()[mi][z].mostrarValorCasilla());
+							m.setText(busca.darCasillas()[i_button1][j_button2].mostrarValorCasilla());
 							casillasParaGanar++;
 							if(casillasParaGanar == Buscaminas.MINAS_TOTALES_EXPERTO_PARA_GANAR) {
 								Alert gameOver = new Alert(AlertType.INFORMATION);
@@ -448,6 +448,14 @@ public class gameController implements Initializable {
 			
 			
 		}
+		Alert gameOver = new Alert(AlertType.INFORMATION);
+		gameOver.setTitle("¡Ganaste Pero haciendo trampas!");
+		gameOver.setHeaderText("¡Buuuuuuu!");
+		gameOver.setContentText(
+				"Vuelva y juegue tramposo");
+		gameOver.showAndWait();
+		ActionEvent e = null;
+		reiniciar(e);
 		}catch(NullPointerException e) {
 			Alert gameOver = new Alert(AlertType.INFORMATION);
 			gameOver.setTitle("Alto Ahi!");
@@ -468,8 +476,8 @@ public class gameController implements Initializable {
 					
 					for(int j = 0; j < casillas[0].length &&!t;j++) {
 						
-						if(busca.darCasillas()[i][j].darValor() > 0 && busca.darCasillas()[i][j].darTipo() == Casilla.LIBRE) {
-							Node m = getNodeFromGridPane(grid, j, i);
+						if(busca.darPista()) {
+							Node m1 = getNodeFromGridPane(grid, i, j);
 //						    m.setText(Integer.toString(busca.darCasillas()[i][j].darValor()));
 						    t = true;
 						} 
@@ -499,7 +507,12 @@ public class gameController implements Initializable {
 			grid.getChildren().clear();
 		}
 		}catch(NullPointerException e1) {
-			System.out.println("Debes crear el tablero");
+			Alert gameOver = new Alert(AlertType.INFORMATION);
+			gameOver.setTitle("Alto Ahi!");
+			gameOver.setHeaderText("¡Excepcion Encontrada!");
+			gameOver.setContentText(
+					"Por cree el tablero, para poder jugar");
+			gameOver.showAndWait();
 		}
 	}
 	
@@ -519,24 +532,14 @@ public class gameController implements Initializable {
 	}
 
 
-	private Node getNodeFromGridPane(GridPane grid, int col, int row) {
-		 ObservableList<Node> childrens = getGrid().getChildren();
-	    for (Node node : childrens) {
-	        if (extracted1(grid, node) == col && extracted(grid, node) == row) {
-	            return node;  
+	private Node getNodeFromGridPane(GridPane grid1, final int col,final int row) {
+		 ObservableList<Node> childrens = grid1.getChildren();
+	    for (Node nodes : childrens) {
+	        if (GridPane.getColumnIndex(nodes) == col && GridPane.getRowIndex(nodes) == row) {
+	            return nodes;  
 	        }
 	    }
 	    return null;
-	}
-
-
-	private Integer extracted1(GridPane grid, Node node) {
-		return GridPane.getColumnIndex(node);
-	}
-
-
-	private Integer extracted(GridPane grid, Node node) {
-		return GridPane.getRowIndex(node);
 	}
 	
 	@Override
