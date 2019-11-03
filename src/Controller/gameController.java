@@ -1,4 +1,4 @@
-package application;
+package Controller;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -53,8 +53,8 @@ public class gameController implements Initializable {
 	private Button botonDarPista;
 
     
-	public static final Image tile = new Image("application/TileOriginal.png", 10, 10, false, false);
-	public static final Image mine = new Image("application/Mine.png", 10, 10, false, false);
+	public static final Image tile = new Image("Controller/TileOriginal.png", 10, 10, false, false);
+	public static final Image mine = new Image("Controller/Mine.png", 10, 10, false, false);
 	
 	private Buscaminas busca;
 	private boolean t = false;
@@ -86,7 +86,7 @@ public class gameController implements Initializable {
 			int mi = i;
 			for(int j = 0; j < casillas[0].length;j++) {
 				int z = j;	
-				Button m = new Button(busca.darCasillas()[i][j].mostrarValorCasilla());
+				Button m = new Button("  ");
 				m.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
 				m.setGraphic(new ImageView(tile));
 				m.setGraphicTextGap(5);
@@ -97,7 +97,7 @@ public class gameController implements Initializable {
 					public void handle(ActionEvent event) {
 						
 						if(busca.abrirCasilla(mi, z)) {
-							m.setText(busca.darCasillas()[mi][z].mostrarValorCasilla());
+							
 							if(busca.darCasillas()[mi][z].mostrarValorCasilla() == "*") {
 								m.setGraphic(new ImageView(mine));
 								m.setDisable(false);
@@ -164,7 +164,7 @@ public class gameController implements Initializable {
 			int mi = i;
 			for(int j = 0; j < casillas[0].length;j++) {
 				int z = j;	
-				Button m = new Button(busca.darCasillas()[i][j].mostrarValorCasilla());
+				Button m = new Button("  ");
 				m.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
 				m.setGraphic(new ImageView(tile));
 				m.setGraphicTextGap(5);
@@ -175,7 +175,6 @@ public class gameController implements Initializable {
 					public void handle(ActionEvent event) {
 						
 						if(busca.abrirCasilla(mi, z)) {
-							m.setText(busca.darCasillas()[mi][z].mostrarValorCasilla());
 							if(busca.darCasillas()[mi][z].mostrarValorCasilla() == "*") {
 								m.setGraphic(new ImageView(mine));
 								m.setDisable(false);
@@ -248,7 +247,7 @@ public class gameController implements Initializable {
 			int mi = i;
 			for(int j = 0; j < casillas[0].length;j++) {
 				int z = j;	
-				Button m = new Button(busca.darCasillas()[i][j].mostrarValorCasilla());
+				Button m = new Button("  ");
 				m.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
 				m.setGraphic(new ImageView(tile));
 				m.setGraphicTextGap(5);
@@ -259,7 +258,6 @@ public class gameController implements Initializable {
 					public void handle(ActionEvent event) {
 						
 						if(busca.abrirCasilla(mi, z)) {
-							m.setText(busca.darCasillas()[mi][z].mostrarValorCasilla());
 							if(busca.darCasillas()[mi][z].mostrarValorCasilla() == "*") {
 								m.setGraphic(new ImageView(mine));
 								m.setDisable(false);
@@ -303,10 +301,11 @@ public class gameController implements Initializable {
 	
 	public void resolver() {
 		try {
-		if(busca.getNivel() == 1) {
+		if(busca.getNivel() == 1) { 
 			Casilla[][] casillas = busca.darCasillas();
 			grid.getChildren().clear();
 			grid = new GridPane();
+			grid.setGridLinesVisible(true);
 			grid.setMaxHeight(30);
 			grid.setMaxWidth(30); 
 	        for (int row = 0 ; row < Buscaminas.FILAS_PRINCIPIANTE ; row++ ){
@@ -325,7 +324,7 @@ public class gameController implements Initializable {
 			for(int i = 0; i < casillas.length;i++) {
 				
 				for(int j = 0; j < casillas[0].length;j++) {
-					Button m = new Button(busca.darCasillas()[i][j].mostrarValorCasilla());
+					Button m = new Button("   ");
 					m.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
 					m.setGraphic(new ImageView(tile));
 					m.setGraphicTextGap(5);
@@ -338,20 +337,115 @@ public class gameController implements Initializable {
 					m.setGraphicTextGap(5);
 					m.setDisable(false);
 					}else {
-						m.setText(Integer.toString(busca.darCasillas()[i][j].darValor()));
-					}
+						Label lab2 = new Label(Integer.toString(busca.darCasillas()[i][j].darValor()));
+						m.setText(lab2.getText());
+					} 
 					
 					grid.add(m, i, j);
 				} 
-				
+				 
 			}
 	        grid.setHgap(2); 
 	        grid.setVgap(2);
 			board.setCenter(grid);
 			
 		}else if(busca.getNivel() == 2) {
+			Casilla[][] casillas = busca.darCasillas();
+			grid.getChildren().clear(); 
+			grid = new GridPane();
+			grid.setGridLinesVisible(true);
+			grid.setMaxHeight(30);
+			grid.setMaxWidth(30); 
+	        for (int row = 0 ; row < Buscaminas.FILAS_INTERMEDIO ; row++ ){
+	            RowConstraints rc = new RowConstraints();
+	            rc.setFillHeight(true);
+	            rc.setVgrow(Priority.ALWAYS);
+	            grid.getRowConstraints().add(rc);
+	        }
+	        for (int col = 0 ; col < Buscaminas.COLUMNAS_INTERMEDIO; col++ ) {
+	            ColumnConstraints cc = new ColumnConstraints();
+	            cc.setFillWidth(true);
+	            cc.setHgrow(Priority.ALWAYS);
+	            grid.getColumnConstraints().add(cc);
+	        }
+			
+			for(int i = 0; i < casillas.length;i++) {
+				
+				for(int j = 0; j < casillas[0].length;j++) {
+					Button m = new Button("   ");
+					m.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
+					m.setGraphic(new ImageView(tile));
+					m.setGraphicTextGap(5);
+					m.setDisable(false);
+					Label lab1 = new Label(busca.darCasillas()[i][j].mostrarValorCasilla());
+					m.setText(lab1.getText());
+					if(busca.darCasillas()[i][j].darTipo() == Casilla.MINA) {
+					m.setText("*");
+					m.setGraphic(new ImageView(mine));
+					m.setGraphicTextGap(5);
+					m.setDisable(false);
+					}else {
+						Label lab2 = new Label(Integer.toString(busca.darCasillas()[i][j].darValor()));
+						m.setText(lab2.getText());
+					} 
+					
+					grid.add(m, i, j);
+				} 
+				 
+			}
+	        grid.setHgap(2); 
+	        grid.setVgap(2);
+			board.setCenter(grid);
+				
 			
 		}else if(busca.getNivel() == 3) {
+			Casilla[][] casillas = busca.darCasillas();
+			grid.getChildren().clear();
+			grid = new GridPane();
+			grid.setGridLinesVisible(true);
+			grid.setMaxHeight(30);
+			grid.setMaxWidth(30); 
+	        for (int row = 0 ; row < Buscaminas.FILAS_EXPERTO ; row++ ){
+	            RowConstraints rc = new RowConstraints();
+	            rc.setFillHeight(true);
+	            rc.setVgrow(Priority.ALWAYS);
+	            grid.getRowConstraints().add(rc);
+	        }
+	        for (int col = 0 ; col < Buscaminas.COLUMNAS_EXPERTO; col++ ) {
+	            ColumnConstraints cc = new ColumnConstraints();
+	            cc.setFillWidth(true);
+	            cc.setHgrow(Priority.ALWAYS);
+	            grid.getColumnConstraints().add(cc);
+	        }
+			
+			for(int i = 0; i < casillas.length;i++) {
+				
+				for(int j = 0; j < casillas[0].length;j++) {
+					Button m = new Button("   ");
+					m.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
+					m.setGraphic(new ImageView(tile));
+					m.setGraphicTextGap(5);
+					m.setDisable(false);
+					Label lab1 = new Label(busca.darCasillas()[i][j].mostrarValorCasilla());
+					m.setText(lab1.getText());
+					if(busca.darCasillas()[i][j].darTipo() == Casilla.MINA) {
+					m.setText("*");
+					m.setGraphic(new ImageView(mine));
+					m.setGraphicTextGap(5);
+					m.setDisable(false);
+					}else {
+						Label lab2 = new Label(Integer.toString(busca.darCasillas()[i][j].darValor()));
+						m.setText(lab2.getText());
+					} 
+					
+					grid.add(m, j, i);
+				} 
+				 
+			}
+	        grid.setHgap(2); 
+	        grid.setVgap(2);
+			board.setCenter(grid);
+			
 			
 		}
 		}catch(NullPointerException e) {
