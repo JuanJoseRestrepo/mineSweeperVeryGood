@@ -20,7 +20,7 @@ public class Buscaminas {
 	/**
 	 * Es una constante utilizada para indicar la cantidad de CASILLAS en el nivel principiante
 	 */
-	public static final int MINAS_TOTALES_PRINCPIANTE_PARA_GANAR = 63;
+	public static final int MINAS_TOTALES_PRINCPIANTE_PARA_GANAR = 54;
 	/**
 	 * Es una constante utilizada para indicar la cantidad de CASILLAS en el nivel Intermedio
 	 */
@@ -78,7 +78,7 @@ public class Buscaminas {
 	/**
 	 * Es una constante utilizada para saber la cantidad de minas en nivel principiante
 	 */
-	public static final int CANTIDAD_MINAS_PRINCIPANTE = 1;
+	public static final int CANTIDAD_MINAS_PRINCIPANTE = 10;
 
 	/**
 	 * Es una constante utilizada para saber la cantidad de minas en nivel intermedio

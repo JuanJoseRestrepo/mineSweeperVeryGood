@@ -496,6 +496,60 @@ public class gameController implements Initializable {
 				
 				
 				board.setCenter(grid);
+		}else if(busca.getNivel() == 2) {
+			Casilla[][] casillas = busca.darCasillas();
+			boolean t1 = false;
+			grid.setMaxHeight(30);
+			grid.setMaxWidth(30); 
+			for(int i = 0; i < casillas.length &&!t1 ;i++) {
+				
+				for(int j = 0; j < casillas[0].length &&!t1;j++) {
+					
+					if(casillas[i][j].esMina() == false && casillas[i][j].darValor() > 0 && casillas[i][j].darSeleccionada() != true) {
+						casillas[i][j].destapar();
+						Button m = new Button(casillas[i][j].mostrarValorCasilla());
+						m.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
+						m.setGraphic(new ImageView(tile));
+						m.setGraphicTextGap(5);
+						m.setDisable(false);
+						grid.add(m, i, j);
+					    t1 = true;
+					    casillasParaGanar++;
+					} 
+					
+				}
+			
+			}
+			
+			
+			board.setCenter(grid);
+		}else if(busca.getNivel() == 3) {
+			Casilla[][] casillas = busca.darCasillas();
+			boolean t1 = false;
+			grid.setMaxHeight(30);
+			grid.setMaxWidth(30); 
+			for(int i = 0; i < casillas.length &&!t1 ;i++) {
+				
+				for(int j = 0; j < casillas[0].length &&!t1;j++) {
+					
+					if(casillas[i][j].esMina() == false && casillas[i][j].darValor() > 0 && casillas[i][j].darSeleccionada() != true) {
+						casillas[i][j].destapar();
+						Button m = new Button(casillas[i][j].mostrarValorCasilla());
+						m.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
+						m.setGraphic(new ImageView(tile));
+						m.setGraphicTextGap(5);
+						m.setDisable(false);
+						grid.add(m, j, i);
+					    t1 = true;
+					    casillasParaGanar++;
+					} 
+					
+				}
+			
+			}
+			
+			
+			board.setCenter(grid);
 		}
 		}catch(NullPointerException e1) {
 			Alert gameOver = new Alert(AlertType.INFORMATION);
