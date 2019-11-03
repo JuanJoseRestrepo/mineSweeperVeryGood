@@ -20,7 +20,7 @@ public class Buscaminas {
 	/**
 	 * Es una constante utilizada para indicar la cantidad de CASILLAS en el nivel principiante
 	 */
-	public static final int MINAS_TOTALES_PRINCPIANTE_PARA_GANAR = 54;
+	public static final int MINAS_TOTALES_PRINCPIANTE_PARA_GANAR = 63;
 	/**
 	 * Es una constante utilizada para indicar la cantidad de CASILLAS en el nivel Intermedio
 	 */
@@ -78,7 +78,7 @@ public class Buscaminas {
 	/**
 	 * Es una constante utilizada para saber la cantidad de minas en nivel principiante
 	 */
-	public static final int CANTIDAD_MINAS_PRINCIPANTE = 10;
+	public static final int CANTIDAD_MINAS_PRINCIPANTE = 1;
 
 	/**
 	 * Es una constante utilizada para saber la cantidad de minas en nivel intermedio
@@ -355,21 +355,24 @@ public class Buscaminas {
 	public boolean gano() {
 		boolean t = false;
 		boolean x = false;
-		
+		int con = 0;
 		for(int i = 0; i < casillas.length && !x;i++){
 			for(int j = 0; j < casillas[0].length && !x;j++){
 				if(casillas[i][j].esMina() == false && casillas[i][j].darSeleccionada() == true){
-		
-					t = true;	
-					}else{
+					con++;
+					if(con == MINAS_TOTALES_PRINCPIANTE_PARA_GANAR) {
+					t = true;
+					}	
+					else{
 					darPerdio();
-					x = false;
+					x = true;
 					}
 				
 			}
 		}
-		
+		}
 		return t;
+		
 	}
 
 

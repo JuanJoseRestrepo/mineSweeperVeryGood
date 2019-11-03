@@ -468,23 +468,34 @@ public class gameController implements Initializable {
 	}
 	
 	public void darPista(ActionEvent e) {
-		t = false;
 		try {
 			if(busca.getNivel() == 1) {
 				Casilla[][] casillas = busca.darCasillas();
-				for(int i = 0; i < casillas.length &&!t ;i++) {
+				boolean t1 = false;
+				grid.setMaxHeight(30);
+				grid.setMaxWidth(30); 
+				for(int i = 0; i < casillas.length &&!t1 ;i++) {
 					
-					for(int j = 0; j < casillas[0].length &&!t;j++) {
+					for(int j = 0; j < casillas[0].length &&!t1;j++) {
 						
-						if(busca.darPista()) {
-							Node m1 = getNodeFromGridPane(grid, i, j);
-//						    m.setText(Integer.toString(busca.darCasillas()[i][j].darValor()));
-						    t = true;
+						if(casillas[i][j].esMina() == false && casillas[i][j].darValor() > 0 && casillas[i][j].darSeleccionada() != true) {
+							casillas[i][j].destapar();
+							Button m = new Button(casillas[i][j].mostrarValorCasilla());
+							m.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
+							m.setGraphic(new ImageView(tile));
+							m.setGraphicTextGap(5);
+							m.setDisable(false);
+							grid.add(m, i, j);
+						    t1 = true;
+						    casillasParaGanar++;
 						} 
 						
 					}
 				
 				}
+				
+				
+				board.setCenter(grid);
 		}
 		}catch(NullPointerException e1) {
 			Alert gameOver = new Alert(AlertType.INFORMATION);
