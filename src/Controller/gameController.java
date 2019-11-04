@@ -122,6 +122,8 @@ public class gameController implements Initializable {
 								gameOver.setContentText(
 										"Sigue jugando B)");
 								gameOver.showAndWait();
+								reiniciar(e);
+								botonPrincipiante(e);
 							}
 						}
 					}
@@ -199,6 +201,8 @@ public class gameController implements Initializable {
 								gameOver.setContentText(
 										"Sigue jugando B)");
 								gameOver.showAndWait();
+								reiniciar(e);
+								botonIntermedio(e);
 							}
 						}
 						
@@ -282,6 +286,8 @@ public class gameController implements Initializable {
 								gameOver.setContentText(
 										"Sigue jugando B)");
 								gameOver.showAndWait();
+								reiniciar(e);
+								botonExperto(e);
 							}
 						}
 						
