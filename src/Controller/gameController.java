@@ -111,7 +111,7 @@ public class gameController implements Initializable {
 								botonPrincipiante(event);
 							}		
 						}
-						
+						 
 						else{
 							m.setText(busca.darCasillas()[i_button1][j_button2].mostrarValorCasilla());
 							casillasParaGanar++;
@@ -301,6 +301,7 @@ public class gameController implements Initializable {
 	
 	public void resolver() {
 		try {
+		if(!grid.getChildren().isEmpty()) {	
 		if(busca.getNivel() == 1) { 
 			Casilla[][] casillas = busca.darCasillas();
 			grid.getChildren().clear();
@@ -456,6 +457,14 @@ public class gameController implements Initializable {
 		gameOver.showAndWait();
 		ActionEvent e = null;
 		reiniciar(e);
+		}else {
+			Alert gameOver = new Alert(AlertType.INFORMATION);
+			gameOver.setTitle("Alto Ahi!");
+			gameOver.setHeaderText("¡No hay tablero!");
+			gameOver.setContentText(
+					"Por cree el tablero, para poder jugar");
+			gameOver.showAndWait();
+		}
 		}catch(NullPointerException e) {
 			Alert gameOver = new Alert(AlertType.INFORMATION);
 			gameOver.setTitle("Alto Ahi!");
@@ -469,6 +478,7 @@ public class gameController implements Initializable {
 	
 	public void darPista(ActionEvent e) {
 		try {
+			if(!grid.getChildren().isEmpty()) {
 			if(busca.getNivel() == 1) {
 				Casilla[][] casillas = busca.darCasillas();
 				boolean t1 = false;
@@ -550,6 +560,14 @@ public class gameController implements Initializable {
 			
 			
 			board.setCenter(grid);
+		}
+		}else {
+			Alert gameOver = new Alert(AlertType.INFORMATION);
+			gameOver.setTitle("Alto Ahi!");
+			gameOver.setHeaderText("¡No puedes jugar sin un tablero!");
+			gameOver.setContentText(
+					"Por favor cree el tablero, para poder jugar");
+			gameOver.showAndWait();
 		}
 		}catch(NullPointerException e1) {
 			Alert gameOver = new Alert(AlertType.INFORMATION);
